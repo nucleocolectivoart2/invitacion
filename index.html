@@ -3,7 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Revelación de Género - Juan y Camila</title>
+    <title>¿Niño o Niña? | Juan y Camila</title>
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="¡Tenemos una sorpresa para ti! 🧸">
+    <meta property="og:description" content="Juan y Camila te invitan a compartir un momento muy especial.">
+    <meta property="og:url" content="https://nucleocolectivoart2.github.io/invitacion/">
+    <meta property="og:image" content="https://nucleocolectivoart2.github.io/invitacion/__preview.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="¡Tenemos una sorpresa para ti! 🧸">
+    <meta name="twitter:description" content="Juan y Camila te invitan a compartir un momento muy especial.">
+    <meta name="twitter:image" content="https://nucleocolectivoart2.github.io/invitacion/__preview.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @font-face {
@@ -22,6 +36,7 @@
         .fade-in-element.active { opacity: 1; transform: translateY(0); }
         .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.8); }
         .rsvp-btn { position: absolute; top: 20px; right: 20px; z-index: 20; }
+        .mute-btn { position: absolute; top: 20px; left: 20px; z-index: 20; }
     </style>
 </head>
 <body class="flex items-center justify-center bg-neutral-200">
@@ -58,16 +73,26 @@
         <!-- CONTENIDO PRINCIPAL -->
         <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/fondo.png" class="absolute inset-0 w-full h-full object-cover z-0" alt="Fondo Principal">
         
-        <!-- Botón RSVP que persiste en la segunda página -->
+        <!-- Botón RSVP y Mute -->
+        <button id="mute-btn" onclick="toggleMute()" class="mute-btn bg-black/50 text-white p-2 rounded-full shadow-lg hover:scale-105 transition-all">
+            <svg id="speaker-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M14 3.23v2.99c2.32.7 4 2.87 4 5.43 0 2.56-1.68 4.74-4 5.44v2.99c3.39-.77 6-3.83 6-8.43 0-4.6-2.61-7.66-6-8.42zM7 9v6h3l5 5V4l-5 5H7z"/>
+            </svg>
+        </button>
         <a href="https://wa.me/573012243511?text=¡Hola!%20Confirmo%20mi%20asistencia!" target="_blank" class="rsvp-btn bg-[#4A3728] text-white text-[10px] font-bold px-4 py-2 rounded-full shadow-lg hover:scale-105 transition-all">
             Confirmar RSVP ✨
         </a>
 
         <div class="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center">
-            <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/nino%20o%20nina.png" class="absolute top-[8%] w-[69%] fade-in-element content-anim" alt="Título">
+            <!-- Título: Subido (top 6% -> 5%) -->
+            <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/nino%20o%20nina.png" class="absolute top-[5%] w-[69%] fade-in-element content-anim" alt="Título">
+            <!-- Subtítulo: Bajado (top 25% -> 26%) -->
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/vamos%20a%20descubrirlo.png" class="absolute top-[26%] w-[52%] fade-in-element content-anim" alt="Subtítulo">
-            <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/texto.png" class="absolute top-[67%] w-[78%] fade-in-element content-anim" alt="Texto descriptivo">
+            <!-- Texto descriptivo: Bajado (top 67% -> 68%) -->
+            <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/texto.png" class="absolute top-[68%] w-[78%] fade-in-element content-anim" alt="Texto descriptivo">
+            <!-- "Te esperamos": Mantenido (78%) -->
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/te%20esperamos.png" class="absolute top-[78%] w-[39%] fade-in-element content-anim" alt="Llamado a la acción">
+            <!-- Datos del evento: Mantenido (4.5%) -->
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/datos.png" class="absolute bottom-[4.5%] w-[84%] fade-in-element content-anim" alt="Datos del evento">
         </div>
     </div>
@@ -76,6 +101,16 @@
         const bgMusic = new Audio("https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/46851258-musique-de-la-berceuse-338570.mp3");
         bgMusic.loop = true;
         
+        let isMuted = false;
+        function toggleMute() {
+            isMuted = !isMuted;
+            bgMusic.muted = isMuted;
+            const icon = document.getElementById('speaker-icon');
+            icon.innerHTML = isMuted 
+                ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C18.63 14.91 19 13.5 19 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3z"/>' 
+                : '<path d="M14 3.23v2.99c2.32.7 4 2.87 4 5.43 0 2.56-1.68 4.74-4 5.44v2.99c3.39-.77 6-3.83 6-8.43 0-4.6-2.61-7.66-6-8.42zM7 9v6h3l5 5V4l-5 5H7z"/>';
+        }
+
         const targetDate = new Date("June 14, 2026 15:00:00").getTime();
 
         function updateCountdown() {
@@ -98,7 +133,7 @@
         });
 
         function playInvitation() {
-            bgMusic.play().catch(e => console.log("Audio playback failed, likely user interaction required first."));
+            bgMusic.play().catch(e => console.log("Audio playback failed"));
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
             setTimeout(() => { 
