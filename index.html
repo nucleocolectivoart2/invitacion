@@ -8,9 +8,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
+        /* Definición de fuentes para evitar duplicados y conflictos */
         @font-face {
             font-family: 'Baloo 2 Original';
             src: url('https://cdn.jsdelivr.net/gh/nucleocolectivoart2/invitacion@main/elementos/Fonts/Baloo2-ExtraBold.ttf') format('truetype');
@@ -31,19 +31,19 @@
             margin: 0;
             padding: 0;
             width: 100%;
-            height: 100%;
+            height: 100dvh;
             overflow: hidden;
             background-color: #f7f3ef;
-            font-family: 'Montserrat', sans-serif;
+            font-family: sans-serif;
         }
 
-        .font-baloo { font-family: 'Baloo 2 Original', 'Baloo 2', cursive; }
-        .font-cormorant { font-family: 'Cormorant Garamond Original', 'Cormorant Garamond', serif; }
+        .font-baloo { font-family: 'Baloo 2 Original', cursive; }
+        .font-cormorant { font-family: 'Cormorant Garamond Original', serif; }
 
         .phone-canvas {
             position: relative;
             width: 100%;
-            height: 100%;
+            height: 100dvh;
             max-width: 450px;
             margin: 0 auto;
             overflow: hidden;
@@ -61,13 +61,17 @@
         }
         .anim-float { animation: gentleFloat 6s ease-in-out infinite; }
 
+        /* Clase de animación base */
         .fade-in-element {
             opacity: 0;
-            transform: translateY(20px) scale(0.98);
-            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(25px) scale(0.95);
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
             will-change: transform, opacity;
         }
-        .fade-in-element.active { opacity: 1; transform: translateY(0) scale(1); }
+        .fade-in-element.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 
         .paused-waves span { animation-play-state: paused !important; }
     </style>
@@ -76,6 +80,7 @@
 
     <div id="app-container" class="phone-canvas flex flex-col justify-between">
 
+        <!-- Botones Superiores (Aparecen después de Play) -->
         <button id="audioToggleBtn" onclick="toggleAudio()" class="absolute top-4 left-4 z-40 bg-white/75 backdrop-blur-md hover:bg-white p-2.5 rounded-full text-[#5E3512] shadow-md transition-all flex items-center justify-center space-x-1 hidden">
             <svg id="audioIcon" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
@@ -91,49 +96,54 @@
             <span>Confirmar RSVP</span>
         </a>
 
+        <!-- PANTALLA INICIAL (PORTADA) -->
         <div id="intro-screen" class="absolute inset-0 z-50 bg-[#F6F3EF] flex flex-col justify-between items-center transition-all duration-1000">
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/fondo1.png" class="absolute inset-0 w-full h-full object-cover z-0">
             
             <div class="relative z-10 flex flex-col items-center w-full pt-16 px-6 pb-12 h-full justify-between">
                 
                 <div class="flex flex-col items-center w-full">
-                    <div class="text-center mb-8"><span class="text-amber-500/60 text-lg">✨ 🍼 ✨</span></div>
+                    <!-- Icono animado -->
+                    <div class="text-center mb-8 fade-in-element" id="intro-1">
+                        <span class="text-amber-500/60 text-lg">✨ 🍼 ✨</span>
+                    </div>
                     
                     <div class="text-center space-y-6 flex flex-col justify-center items-center">
                         <div class="space-y-1">
-                            <p class="font-cormorant text-[2.8rem] text-[#3B2415] italic leading-tight">Juan y Camila</p>
-                            <p class="font-cormorant text-2xl text-[#5E3512]/80 italic">te tienen una sorpresa...</p>
+                            <p class="font-cormorant text-[2.8rem] text-[#3B2415] italic leading-tight fade-in-element" id="intro-2">Juan y Camila</p>
+                            <p class="font-cormorant text-2xl text-[#5E3512]/80 italic fade-in-element" id="intro-3">te tienen una sorpresa...</p>
                         </div>
                         <div class="space-y-1">
-                            <span class="font-cormorant text-2xl text-[#3B2415]/70 italic block">Revelación de</span>
-                            <h1 class="font-baloo text-[3rem] text-[#6B3A10] leading-none">GÉNERO</h1>
+                            <span class="font-cormorant text-2xl text-[#3B2415]/70 italic block fade-in-element" id="intro-4">Revelación de</span>
+                            <h1 class="font-baloo text-[3rem] text-[#6B3A10] leading-none fade-in-element" id="intro-5">GÉNERO</h1>
                         </div>
                     </div>
                 </div>
 
-                <button onclick="playInvitation()" class="w-full max-w-[260px] bg-[#E8DCCB] text-[#5E3512] font-baloo text-lg py-4 rounded-full shadow-md z-10 hover:scale-105 transition-transform">✨ Reproducir ✨</button>
+                <!-- Botón de Reproducir animado -->
+                <button onclick="playInvitation()" class="w-full max-w-[260px] bg-[#E8DCCB] text-[#5E3512] font-baloo text-lg py-4 rounded-full shadow-md z-10 hover:scale-105 transition-all fade-in-element" id="intro-6">✨ Reproducir ✨</button>
             </div>
         </div>
 
+        <!-- PANTALLA SECUNDARIA (CONTENIDO) -->
         <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/fondo.png" class="absolute inset-0 w-full h-full object-cover z-0">
 
         <div class="absolute inset-0 z-10 pointer-events-none">
-            <div class="absolute top-[6.5%] w-full text-center z-30 font-cormorant text-[2.2rem] text-[#5E3512] text-glow fade-in-element">Juan y Camila</div>
-            
+            <!-- Elementos animados de la segunda pantalla -->
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/nino%20o%20nina.png" 
-                 class="absolute top-[13%] left-[15.5%] w-[69%] z-20 fade-in-element anim-float">
+                 class="absolute top-[8%] left-[15.5%] w-[69%] z-20 fade-in-element content-anim anim-float">
             
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/vamos%20a%20descubrirlo.png" 
-                 class="absolute top-[32%] left-[24%] w-[52%] z-20 fade-in-element anim-float">
+                 class="absolute top-[26%] left-[24%] w-[52%] z-20 fade-in-element content-anim anim-float">
 
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/texto.png" 
-                 class="absolute top-[67%] left-[11%] w-[78%] z-20 fade-in-element">
+                 class="absolute top-[67%] left-[11%] w-[78%] z-20 fade-in-element content-anim">
 
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/te%20esperamos.png" 
-                 class="absolute top-[78%] left-[31%] w-[39%] z-20 fade-in-element">
+                 class="absolute top-[78%] left-[31%] w-[39%] z-20 fade-in-element content-anim">
 
             <img src="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/datos.png" 
-                 class="absolute bottom-[4.5%] left-[8%] w-[84%] z-20 fade-in-element">
+                 class="absolute bottom-[4.5%] left-[8%] w-[84%] z-20 fade-in-element content-anim">
         </div>
     </div>
 
@@ -142,24 +152,57 @@
         const audioToggleBtn = document.getElementById('audioToggleBtn');
         const rsvpBtn = document.getElementById('rsvpBtn');
         const audioWaves = document.getElementById('audioWaves');
+        
+        // Carga de audio
         const bgMusic = new Audio("https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/elementos/46851258-musique-de-la-berceuse-338570.mp3");
         bgMusic.loop = true;
 
+        // Al cargar la página, animar los elementos de la PORTADA
+        window.addEventListener('DOMContentLoaded', () => {
+            const introElements = [
+                'intro-1', 'intro-2', 'intro-3', 'intro-4', 'intro-5', 'intro-6'
+            ];
+            introElements.forEach((id, i) => {
+                setTimeout(() => {
+                    document.getElementById(id).classList.add('active');
+                }, i * 250);
+            });
+        });
+
+        // Función al hacer clic en REPRODUCIR
         function playInvitation() {
-            introScreen.style.opacity = '0';
-            setTimeout(() => { introScreen.style.display = 'none'; triggerAnimations(); }, 1000);
-            audioToggleBtn.classList.remove('hidden');
-            rsvpBtn.classList.remove('hidden');
+            // Iniciar audio
             bgMusic.play().catch(e => console.log("Audio play prevented:", e));
+            
+            // Desvanecer portada
+            introScreen.style.opacity = '0';
+            
+            setTimeout(() => { 
+                introScreen.style.display = 'none'; 
+                // Animar elementos de la invitación principal
+                triggerContentAnimations(); 
+                audioToggleBtn.classList.remove('hidden');
+                rsvpBtn.classList.remove('hidden');
+            }, 1000);
         }
 
-        function triggerAnimations() { 
-            document.querySelectorAll('.fade-in-element').forEach((el, i) => setTimeout(() => el.classList.add('active'), i * 400)); 
+        // Animación de los elementos de la segunda pantalla
+        function triggerContentAnimations() { 
+            const contentElements = document.querySelectorAll('.content-anim');
+            contentElements.forEach((el, i) => {
+                setTimeout(() => el.classList.add('active'), i * 400);
+            });
         }
 
+        // Control de audio
         function toggleAudio() {
-            if (bgMusic.paused) { bgMusic.play(); audioWaves.classList.remove('paused-waves'); }
-            else { bgMusic.pause(); audioWaves.classList.add('paused-waves'); }
+            if (bgMusic.paused) { 
+                bgMusic.play(); 
+                audioWaves.classList.remove('paused-waves'); 
+            } else { 
+                bgMusic.pause(); 
+                audioWaves.classList.add('paused-waves'); 
+            }
         }
     </script>
 </body>
