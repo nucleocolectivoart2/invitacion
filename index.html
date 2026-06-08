@@ -5,19 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>¿Niño o Niña? | Juan y Camila</title>
     
-    <!-- Social Media Meta Tags -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="¡Tenemos una sorpresa para ti! 🧸">
-    <meta property="og:description" content="Juan y Camila te invitan a compartir un momento muy especial.">
+    <meta property="og:description" content="Acompáñanos a descubrir si será niño o niña.">
     <meta property="og:url" content="https://nucleocolectivoart2.github.io/invitacion/">
-    <!-- Usando URL raw para que WhatsApp/Redes puedan leer la imagen -->
-    <meta property="og:image" content="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/preview.png">
+    <meta property="og:image" content="https://nucleocolectivoart2.github.io/invitacion/preview.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="¡Tenemos una sorpresa para ti! 🧸">
-    <meta name="twitter:description" content="Juan y Camila te invitan a compartir un momento muy especial.">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/nucleocolectivoart2/invitacion/main/preview.png">
+    <meta name="twitter:description" content="Acompáñanos a descubrir si será niño o niña.">
+    <meta name="twitter:image" content="https://nucleocolectivoart2.github.io/invitacion/preview.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -126,7 +125,7 @@
         updateCountdown();
 
         window.addEventListener('DOMContentLoaded', () => {
-            // Animar fondo inicial
+            // Animar fondo inicial con disolvencia
             document.getElementById('bg-intro').classList.add('active');
             document.querySelectorAll('.intro-anim').forEach((el, i) => setTimeout(() => el.classList.add('active'), i * 200));
         });
@@ -134,7 +133,7 @@
         function playInvitation() {
             bgMusic.play().catch(e => console.log("Audio playback failed"));
             const intro = document.getElementById('intro-screen');
-            // Animar fondo principal al abrir
+            // Animar fondo principal con disolvencia
             document.getElementById('bg-main').classList.add('active');
             
             intro.style.opacity = '0';
